@@ -1,4 +1,8 @@
+@import '~animate.css/animate.min';
+
 $font_family: system-ui;
+$background_color_2: transparent;
+$background_color_3: rgba(2555, 255, 255, .3);
 
 html {
   position: relative;
@@ -25,31 +29,6 @@ body::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
 }
 
-.container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-@media (min-width: 768px) {
-  .container {
-    width: 750px;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    width: 970px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    width: 1170px;
-  }
-}
-
 h1, h2, h3, h4, h5, h6 {
   font-weight: 500 !important;
   line-height: 1.1;
@@ -73,4 +52,26 @@ h4 {
   padding: 29px 19px !important;
   font-family: $font-family;
   margin-top: 2px;
+}
+
+.panel {
+  background-color: $background_color_2;
+}
+
+.panel-body {
+  padding-top: 30px;
+  background-color: $background_color_3;
+}
+
+.pull-left {
+  float: left !important;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+.aligned-buttons {
+  display: flex;
+  justify-content: space-between;
 }

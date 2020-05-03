@@ -4,8 +4,6 @@ $background_color_1: #2270bd;
   min-height: 60px;
   background-color: $background_color_1 !important;
   border-width: 0;
-  position: fixed;
-  width: 100%;
 }
 
 .navbar-brand {
@@ -20,33 +18,37 @@ $background_color_1: #2270bd;
   text-decoration: none;
 }
 
+.navbar-brand {
+  color: white;
+}
+
 .navbar-brand > img {
   display: block;
 }
 
-@media (min-width: 768px) {
-  .navbar > .container .navbar-brand {
-    margin-left: -5px;
-  }
+.navbar-toggler {
+  border-color: white !important;
 }
 
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: white;
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255, 255, 255)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 
-.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+.navbar-toggler:focus, .navbar-toggler:hover {
   background-color: #ffffff40;
 }
 
 .navbar-li > a, .navbar-header > a {
-  color: white !important;
+  color: white;
   background-color: transparent !important;
   font-weight: 600 !important;
-  padding-left: 14px;
-  padding-right: 16px;
-  line-height: 1.1px;
+  line-height: 20px;
 }
 
-.active > a {
+.active-link {
   color: yellow !important;
+}
+
+.navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
+  color: white;
 }

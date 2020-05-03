@@ -1,0 +1,3 @@
+<app-login-page *ngIf="loginPage" (loginPage)="changeLoginPageStatus($event)"></app-login-page>
+
+<app-register-page *ngIf="!loginPage" (loginPage)="changeLoginPageStatus($event)"></app-register-page>

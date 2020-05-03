@@ -5,19 +5,27 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import {IconsModule, MDBBootstrapModule} from 'angular-bootstrap-md';
 import {NavbarComponent} from './templates/navbar/navbar.component';
 import {FooterComponent} from './templates/footer/footer.component';
 import {HomeComponent} from './home/home.component';
 import {HomeService} from './config/home.service';
 import {MatCardModule} from '@angular/material/card';
+import {LoginComponent} from './login/login.component';
+import {MatIconModule} from '@angular/material/icon';
+import { LoginPageComponent } from './login/login-page/login-page.component';
+import { RegisterPageComponent } from './login/register-page/register-page.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    LoginPageComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +33,9 @@ import {MatCardModule} from '@angular/material/card';
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule,
+    IconsModule
   ],
   providers: [HomeService],
   bootstrap: [AppComponent],
