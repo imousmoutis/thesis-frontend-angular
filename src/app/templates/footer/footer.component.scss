@@ -1,0 +1,26 @@
+$background_color_1: #2270bd;
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background-color: $background_color_1;
+
+  > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    height: inherit;
+  }
+}
+
+.container {
+  .text-muted {
+    color: white !important;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    padding-top: 11px;
+    margin-left: -5px;
+  }
+}
