@@ -14,26 +14,34 @@ export class HomeService {
   constructor(private http: HttpClient) {
   }
 
-  // GET
-  GetServerStatus(): Observable<string> {
+  getServerStatus(): Observable<string> {
     return this.http.get(environment.baseUrl, {responseType: 'text'})
     .pipe(
       retry(1),
-      catchError(this.errorHandl)
+      catchError(this.errorHandle)
     );
   }
 
-  // Error handling
-  errorHandl(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
+  login(user): Observable<any> {
+    return this.http.post(environment.baseUrl + 'login', user, {observe: 'response'})
+    .pipe(
+      catchError(this.errorHandle)
+    );
+  }
+
+  register(user): Observable<string> {
+    return this.http.post(environment.baseUrl + 'register', user, {responseType: 'text'})
+    .pipe(
+      catchError(this.errorHandle)
+    );
+  }
+
+  errorHandle(error) {
+    if (error.status === 403) {
+      console.log('dude');
     } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      console.log('EI');
     }
-    console.log(errorMessage);
-    return throwError(errorMessage);
+    return throwError(error);
   }
 }

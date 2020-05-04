@@ -9,6 +9,10 @@ export class LoginComponent implements OnInit {
 
   loginPage: boolean;
 
+  username = '';
+
+  password = '';
+
   constructor() {
   }
 
@@ -17,7 +21,9 @@ export class LoginComponent implements OnInit {
   }
 
   changeLoginPageStatus($event) {
-    this.loginPage = $event;
+    this.loginPage = $event.loginPage;
+    this.username = $event.username;
+    this.password = $event.password;
   }
 
 }

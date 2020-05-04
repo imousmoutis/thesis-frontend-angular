@@ -14,9 +14,17 @@
              class="nav-link">Home
           </a>
         </li>
-        <li class="nav-item navbar-li">
+        <li class="nav-item navbar-li" *ngIf="authService.isAuthenticated()">
+          <a [routerLink]="['dashboard']" [routerLinkActive]="['active-link']"
+             [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Dashboard
+          </a>
+        <li class="nav-item navbar-li" *ngIf="!authService.isAuthenticated()">
           <a [routerLink]="['login']" [routerLinkActive]="['active-link']"
              [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Login
+          </a>
+        </li>
+        <li class="nav-item navbar-li" *ngIf="authService.isAuthenticated()">
+          <a (click)="logout()" class="nav-link">Logout
           </a>
         </li>
       </ul>

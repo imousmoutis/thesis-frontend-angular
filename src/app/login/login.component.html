@@ -1,3 +1,5 @@
-<app-login-page *ngIf="loginPage" (loginPage)="changeLoginPageStatus($event)"></app-login-page>
+<app-login-page *ngIf="loginPage" (loginPage)="changeLoginPageStatus($event)" [username]="username"
+                [password]="password"></app-login-page>
 
-<app-register-page *ngIf="!loginPage" (loginPage)="changeLoginPageStatus($event)"></app-register-page>
+<app-register-page *ngIf="!loginPage" (loginPage)="changeLoginPageStatus($event)" [username]="username"
+                   [password]="password"></app-register-page>

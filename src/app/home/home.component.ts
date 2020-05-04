@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import {HomeService} from '../config/home.service';
 
@@ -16,7 +15,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.homeService.GetServerStatus().subscribe(res => {
+    this.homeService.getServerStatus().subscribe(res => {
       this.serverStatus = res;
     });
   }

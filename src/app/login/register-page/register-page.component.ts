@@ -1,4 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {LoginPageDto} from '../../dto/login-page-dto';
+import {HomeService} from '../../config/home.service';
 
 @Component({
   selector: 'app-register-page',
@@ -7,15 +10,64 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class RegisterPageComponent implements OnInit {
 
-  @Output() loginPage = new EventEmitter<boolean>();
+  @Output() loginPage = new EventEmitter<LoginPageDto>();
 
-  constructor() { }
+  @Input() username: string;
+
+  @Input() password: string;
+
+  registerForm: FormGroup;
+
+  constructor(private homeService: HomeService) {
+  }
 
   ngOnInit(): void {
+    this.registerForm = new FormGroup({
+      username: new FormControl(this.username, Validators.required),
+      fullName: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl(this.password,
+        [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W\\_])[A-Za-z\\d\\W\\_]{8,}$')])
+    });
+  }
+
+  get usernameField() {
+    return this.registerForm.get('username');
+  }
+
+  get emailField() {
+    return this.registerForm.get('email');
+  }
+
+  get fullNameField() {
+    return this.registerForm.get('fullName');
+  }
+
+  get passwordField() {
+    return this.registerForm.get('password');
   }
 
   changeLoginPageStatus() {
-    this.loginPage.emit(true);
+    const loginPageDto: LoginPageDto = {
+      loginPage: true,
+      username: this.registerForm.value.username,
+      password: this.registerForm.value.password
+    };
+
+    this.loginPage.emit(loginPageDto);
+  }
+
+  register() {
+    this.registerForm.controls.username.markAsTouched();
+    this.registerForm.controls.email.markAsTouched();
+    this.registerForm.controls.fullName.markAsTouched();
+    this.registerForm.controls.password.markAsTouched();
+
+    if (this.registerForm.valid) {
+      this.homeService.register(this.registerForm.value).subscribe(res => {
+        console.log(res);
+      });
+    }
   }
 
 }
