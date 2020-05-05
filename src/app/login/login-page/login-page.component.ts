@@ -4,6 +4,10 @@ import {LoginPageDto} from '../../dto/login-page-dto';
 import {IndexService} from '../../config/index.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {SharedService} from '../../config/shared.service';
+import {Subscription} from 'rxjs';
+import {LoginUserDTO} from '../../dto/login-user-dto';
 
 @Component({
   selector: 'app-login-page',
@@ -22,8 +26,14 @@ export class LoginPageComponent implements OnInit {
 
   loginErrorMessage: boolean;
 
-  constructor(private indexService: IndexService, private jwtHelper: JwtHelperService, private router: Router) {
+  clickEventSubscription: Subscription;
 
+  constructor(private indexService: IndexService, private jwtHelper: JwtHelperService, private router: Router,
+              private snackBar: MatSnackBar, private sharedService: SharedService) {
+
+    this.clickEventSubscription = this.sharedService.getClickEvent().subscribe((user) => {
+      this.performLogin(user);
+    });
   }
 
   ngOnInit(): void {
@@ -57,15 +67,25 @@ export class LoginPageComponent implements OnInit {
 
     if (this.loginForm.valid) {
       this.loginErrorMessage = false;
-      this.indexService.login(this.loginForm.value).subscribe(res => {
-        const jwt = res.headers.get('Authorization');
-        localStorage.setItem('jwt', jwt);
-        console.log(this.jwtHelper.decodeToken(jwt));
-        this.router.navigate(['/dashboard']);
-      }, error => {
-        this.loginErrorMessage = true;
-      });
+      this.performLogin(this.loginForm.value);
     }
+  }
+
+  performLogin(user: LoginUserDTO) {
+    this.indexService.login(user).subscribe(res => {
+      const jwt = res.headers.get('Authorization');
+      localStorage.setItem('jwt', jwt);
+      const decodedJwt = this.jwtHelper.decodeToken(jwt);
+
+      console.log(decodedJwt.role1, decodedJwt.sub);
+
+      this.snackBar.open('You are successfully logged in.', 'Close', {
+        panelClass: ['success-snackbar']
+      });
+      this.router.navigate(['/dashboard']);
+    }, error => {
+      this.loginErrorMessage = true;
+    });
   }
 
 }

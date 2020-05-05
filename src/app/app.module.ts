@@ -23,6 +23,7 @@ import {AuthService} from './config/auth/auth.service';
 import {LoginGuardService} from './config/auth/login-guard.service';
 import {HttpInterceptor} from './config/interceptor/http.interceptor';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/material/snack-bar';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/materia
     LoginComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    DashboardComponent
+    DashboardComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

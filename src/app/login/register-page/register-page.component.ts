@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginPageDto} from '../../dto/login-page-dto';
 import {IndexService} from '../../config/index.service';
+import {SharedService} from '../../config/shared.service';
 
 @Component({
   selector: 'app-register-page',
@@ -18,7 +19,7 @@ export class RegisterPageComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(private indexService: IndexService) {
+  constructor(private indexService: IndexService, private sharedService: SharedService) {
   }
 
   ngOnInit(): void {
@@ -65,7 +66,7 @@ export class RegisterPageComponent implements OnInit {
 
     if (this.registerForm.valid) {
       this.indexService.register(this.registerForm.value).subscribe(res => {
-        console.log(res);
+        this.sharedService.sendClickEvent(this.registerForm.value);
       });
     }
   }
