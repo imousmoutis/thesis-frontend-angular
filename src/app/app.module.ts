@@ -26,6 +26,10 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/materia
 import {AdminComponent} from './admin/admin.component';
 import {RoleGuardService} from './config/auth/role-guard.service';
 import {RoleService} from './config/auth/role.service';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,11 @@ import {RoleService} from './config/auth/role.service';
     IconsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSlideToggleModule
   ],
   providers: [IndexService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
     JwtHelperService, AuthService, AuthGuardService, RoleService, RoleGuardService, LoginGuardService, {

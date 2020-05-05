@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {LoginUserDTO} from '../../dto/login-user-dto';
+import {LoginUserDto} from '../../dto/login-user.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,9 @@ export class AuthSharedService {
 
   userRole: Subject<string> = new Subject();
 
-  username: Subject<string> = new Subject();
+  username: string;
 
-  sendLoginRequest(user: LoginUserDTO) {
+  sendLoginRequest(user: LoginUserDto) {
     this.loginRequestSubject.next(user);
   }
 
@@ -26,6 +26,6 @@ export class AuthSharedService {
   setUserLoggedIn(loggedIn: boolean, username: string, userRole: string) {
     this.userLoggedIn.next(loggedIn);
     this.userRole.next(userRole);
-    this.username.next(username);
+    this.username = username;
   }
 }

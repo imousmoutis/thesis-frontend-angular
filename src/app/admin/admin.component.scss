@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+  font-family: system-ui;
+  color: black !important;
+  font-weight: 400;
+}
+
+.mat-row:nth-child(2n+1) {
+  background-color: #FFFFFF;
+}
+
+.mat-row:nth-child(2n) {
+  background-color: #F2F5F7;
+}

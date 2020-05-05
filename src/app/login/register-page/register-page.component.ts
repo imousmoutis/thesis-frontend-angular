@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {LoginPageDto} from '../../dto/login-page-dto';
+import {LoginPageDto} from '../../dto/login-page.dto';
 import {IndexService} from '../../config/index.service';
 import {AuthSharedService} from '../../config/auth/auth-shared.service';
 

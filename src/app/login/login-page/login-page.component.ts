@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {LoginPageDto} from '../../dto/login-page-dto';
+import {LoginPageDto} from '../../dto/login-page.dto';
 import {IndexService} from '../../config/index.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthSharedService} from '../../config/auth/auth-shared.service';
 import {Subscription} from 'rxjs';
-import {LoginUserDTO} from '../../dto/login-user-dto';
+import {LoginUserDto} from '../../dto/login-user.dto';
 import {environment} from '../../../environments/environment';
 
 @Component({
@@ -72,7 +72,7 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  performLogin(user: LoginUserDTO) {
+  performLogin(user: LoginUserDto) {
     this.indexService.login(user).subscribe(res => {
       const jwt = res.headers.get('Authorization');
       localStorage.setItem('jwt', jwt);
