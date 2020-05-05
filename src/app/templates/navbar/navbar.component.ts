@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../config/auth/auth.service';
 import {Router} from '@angular/router';
+import {IndexService} from '../../config/index.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,15 +10,17 @@ import {Router} from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public authService: AuthService, private router: Router) {
+  constructor(public authService: AuthService, private router: Router, private indexService: IndexService) {
   }
 
   ngOnInit(): void {
   }
 
   logout() {
-    localStorage.removeItem('jwt');
-    this.router.navigate(['']);
+    this.indexService.logout().subscribe(res => {
+      localStorage.removeItem('jwt');
+      this.router.navigate(['']);
+    });
   }
 
 }

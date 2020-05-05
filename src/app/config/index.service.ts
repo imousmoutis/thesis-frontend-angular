@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
-import {Observable, throwError} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -23,5 +22,9 @@ export class IndexService {
 
   register(user): Observable<string> {
     return this.http.post(environment.baseUrl + 'register/', user, {responseType: 'text'});
+  }
+
+  logout(): Observable<any> {
+    return this.http.delete(environment.baseUrl + 'logout/', {headers: {Authorization: localStorage.getItem('jwt')}});
   }
 }

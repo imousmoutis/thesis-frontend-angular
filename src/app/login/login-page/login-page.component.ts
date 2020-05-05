@@ -22,7 +22,7 @@ export class LoginPageComponent implements OnInit {
 
   loginErrorMessage: boolean;
 
-  constructor(private homeService: IndexService, private jwtHelper: JwtHelperService, private router: Router) {
+  constructor(private indexService: IndexService, private jwtHelper: JwtHelperService, private router: Router) {
 
   }
 
@@ -57,7 +57,7 @@ export class LoginPageComponent implements OnInit {
 
     if (this.loginForm.valid) {
       this.loginErrorMessage = false;
-      this.homeService.login(this.loginForm.value).subscribe(res => {
+      this.indexService.login(this.loginForm.value).subscribe(res => {
         const jwt = res.headers.get('Authorization');
         localStorage.setItem('jwt', jwt);
         console.log(this.jwtHelper.decodeToken(jwt));

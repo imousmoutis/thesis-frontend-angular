@@ -18,7 +18,7 @@ export class RegisterPageComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(private homeService: IndexService) {
+  constructor(private indexService: IndexService) {
   }
 
   ngOnInit(): void {
@@ -64,7 +64,7 @@ export class RegisterPageComponent implements OnInit {
     this.registerForm.controls.password.markAsTouched();
 
     if (this.registerForm.valid) {
-      this.homeService.register(this.registerForm.value).subscribe(res => {
+      this.indexService.register(this.registerForm.value).subscribe(res => {
         console.log(res);
       });
     }
