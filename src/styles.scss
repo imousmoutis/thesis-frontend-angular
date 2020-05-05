@@ -75,3 +75,17 @@ h4 {
   display: flex;
   justify-content: space-between;
 }
+
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 10000 !important;
+}
+
+.error-snackbar {
+  color: #fff;
+  background: #d9534f;
+}
+
+.error-snackbar span {
+  color: #fff;
+}

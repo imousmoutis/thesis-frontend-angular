@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginPageDto} from '../../dto/login-page-dto';
-import {HomeService} from '../../config/home.service';
+import {IndexService} from '../../config/index.service';
 
 @Component({
   selector: 'app-register-page',
@@ -18,7 +18,7 @@ export class RegisterPageComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(private homeService: HomeService) {
+  constructor(private homeService: IndexService) {
   }
 
   ngOnInit(): void {

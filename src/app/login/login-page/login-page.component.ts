@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginPageDto} from '../../dto/login-page-dto';
-import {HomeService} from '../../config/home.service';
+import {IndexService} from '../../config/index.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
 
@@ -20,7 +20,9 @@ export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private homeService: HomeService, private jwtHelper: JwtHelperService, private router: Router) {
+  loginErrorMessage: boolean;
+
+  constructor(private homeService: IndexService, private jwtHelper: JwtHelperService, private router: Router) {
 
   }
 
@@ -54,11 +56,14 @@ export class LoginPageComponent implements OnInit {
     this.loginForm.controls.password.markAsTouched();
 
     if (this.loginForm.valid) {
+      this.loginErrorMessage = false;
       this.homeService.login(this.loginForm.value).subscribe(res => {
         const jwt = res.headers.get('Authorization');
         localStorage.setItem('jwt', jwt);
         console.log(this.jwtHelper.decodeToken(jwt));
         this.router.navigate(['/dashboard']);
+      }, error => {
+        this.loginErrorMessage = true;
       });
     }
   }

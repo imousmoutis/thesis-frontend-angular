@@ -23,6 +23,8 @@
           </mdb-error>
         </div>
 
+        <div class="alert alert-danger" role="alert" [hidden]="!loginErrorMessage">Please check your credentials.</div>
+
         <div class="aligned-buttons">
           <button mdbBtn type="button" outline="true" color="info" class="waves-effect z-depth-0 pull-left"
                   mdbWavesEffect (click)="changeLoginPageStatus()">

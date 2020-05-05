@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -9,7 +9,7 @@ import {IconsModule, MDBBootstrapModule} from 'angular-bootstrap-md';
 import {NavbarComponent} from './templates/navbar/navbar.component';
 import {FooterComponent} from './templates/footer/footer.component';
 import {HomeComponent} from './home/home.component';
-import {HomeService} from './config/home.service';
+import {IndexService} from './config/index.service';
 import {MatCardModule} from '@angular/material/card';
 import {LoginComponent} from './login/login.component';
 import {MatIconModule} from '@angular/material/icon';
@@ -21,6 +21,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuthGuardService} from './config/auth/auth-guard.service';
 import {AuthService} from './config/auth/auth.service';
 import {LoginGuardService} from './config/auth/login-guard.service';
+import {HttpInterceptor} from './config/interceptor/http.interceptor';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -43,10 +45,21 @@ import {LoginGuardService} from './config/auth/login-guard.service';
     MatIconModule,
     IconsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
-  providers: [HomeService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
-    JwtHelperService, AuthService, AuthGuardService, LoginGuardService],
+  providers: [IndexService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+    JwtHelperService, AuthService, AuthGuardService, LoginGuardService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptor,
+      multi: true
+    }, {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+        duration: 10000,
+        verticalPosition: 'top',
+        horizontalPosition: 'end'
+      }
+    }],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
