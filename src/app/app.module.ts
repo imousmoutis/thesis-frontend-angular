@@ -23,7 +23,9 @@ import {AuthService} from './config/auth/auth.service';
 import {LoginGuardService} from './config/auth/login-guard.service';
 import {HttpInterceptor} from './config/interceptor/http.interceptor';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from '@angular/material/snack-bar';
-import { AdminComponent } from './admin/admin.component';
+import {AdminComponent} from './admin/admin.component';
+import {RoleGuardService} from './config/auth/role-guard.service';
+import {RoleService} from './config/auth/role.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,7 @@ import { AdminComponent } from './admin/admin.component';
     MatSnackBarModule
   ],
   providers: [IndexService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
-    JwtHelperService, AuthService, AuthGuardService, LoginGuardService, {
+    JwtHelperService, AuthService, AuthGuardService, RoleService, RoleGuardService, LoginGuardService, {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptor,
       multi: true

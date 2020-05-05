@@ -19,12 +19,12 @@
              [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Login
           </a>
         </li>
-        <li class="nav-item navbar-li" *ngIf="authService.isAuthenticated()">
+        <li class="nav-item navbar-li" *ngIf="hasUserRole()">
           <a [routerLink]="['dashboard']" [routerLinkActive]="['active-link']"
              [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Dashboard
           </a>
         </li>
-        <li class="nav-item navbar-li" *ngIf="authService.isAuthenticated()">
+        <li class="nav-item navbar-li" *ngIf="hasAdministratorRole()">
           <a [routerLink]="['admin']" [routerLinkActive]="['active-link']"
              [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Admin
           </a>

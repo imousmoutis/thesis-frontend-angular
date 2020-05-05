@@ -8,6 +8,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuthGuardService} from './config/auth/auth-guard.service';
 import {LoginGuardService} from './config/auth/login-guard.service';
 import {AdminComponent} from './admin/admin.component';
+import {RoleGuardService} from './config/auth/role-guard.service';
+import {environment} from '../environments/environment';
 
 const routes: Routes = [{path: '', component: HomeComponent}, {
   path: 'login',
@@ -16,11 +18,17 @@ const routes: Routes = [{path: '', component: HomeComponent}, {
 }, {
   path: 'dashboard',
   component: DashboardComponent,
-  canActivate: [AuthGuardService]
+  canActivate: [RoleGuardService],
+  data: {
+    expectedRole: environment.user
+  }
 }, {
   path: 'admin',
   component: AdminComponent,
-  canActivate: [AuthGuardService]
+  canActivate: [RoleGuardService],
+  data: {
+    expectedRole: environment.userAdmin
+  }
 }];
 
 @NgModule({

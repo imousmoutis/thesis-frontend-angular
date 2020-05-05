@@ -1,4 +1,6 @@
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080/thesis/api/'
+  baseUrl: 'http://localhost:8080/thesis/api/',
+  userAdmin: 'Administrator',
+  user: 'Search User'
 };

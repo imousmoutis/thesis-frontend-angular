@@ -5,9 +5,10 @@ import {IndexService} from '../../config/index.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {SharedService} from '../../config/shared.service';
+import {AuthSharedService} from '../../config/auth/auth-shared.service';
 import {Subscription} from 'rxjs';
 import {LoginUserDTO} from '../../dto/login-user-dto';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-login-page',
@@ -29,9 +30,9 @@ export class LoginPageComponent implements OnInit {
   clickEventSubscription: Subscription;
 
   constructor(private indexService: IndexService, private jwtHelper: JwtHelperService, private router: Router,
-              private snackBar: MatSnackBar, private sharedService: SharedService) {
+              private snackBar: MatSnackBar, private authSharedService: AuthSharedService) {
 
-    this.clickEventSubscription = this.sharedService.getClickEvent().subscribe((user) => {
+    this.clickEventSubscription = this.authSharedService.loginRequest().subscribe((user) => {
       this.performLogin(user);
     });
   }
@@ -77,12 +78,17 @@ export class LoginPageComponent implements OnInit {
       localStorage.setItem('jwt', jwt);
       const decodedJwt = this.jwtHelper.decodeToken(jwt);
 
-      console.log(decodedJwt.role1, decodedJwt.sub);
+      this.authSharedService.setUserLoggedIn(true, decodedJwt.sub, decodedJwt.role1);
 
       this.snackBar.open('You are successfully logged in.', 'Close', {
         panelClass: ['success-snackbar']
       });
-      this.router.navigate(['/dashboard']);
+
+      if (decodedJwt.role1 === environment.userAdmin) {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/dashboard']);
+      }
     }, error => {
       this.loginErrorMessage = true;
     });
