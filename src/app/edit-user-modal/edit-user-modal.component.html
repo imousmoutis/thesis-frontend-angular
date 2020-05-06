@@ -1,45 +1,49 @@
-<h3>Edit User</h3>
+<h3>{{'editUser' | translate}}</h3>
 <div mat-dialog-content>
   <form class="text-center" [formGroup]="editUserForm" (submit)="update()" novalidate>
     <div class="md-form">
       <input mdbInput mdbValidate id="username" name="username" class="form-control" formControlName="username"
              type="text"/>
-      <label for="username">Username</label>
-      <mdb-error *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">Username is
-        required.
+      <label for="username">{{'username' | translate}}</label>
+      <mdb-error
+        *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">{{'usernameRequired' | translate}}
       </mdb-error>
-    </div>
-
-    <div class="md-form">
-      <input mdbInput mdbValidate id="email" name="email" class="form-control" formControlName="email" type="text">
-      <label for="email">Email</label>
     </div>
 
     <div class="md-form">
       <input mdbInput mdbValidate id="fullName" name="fullName" class="form-control" formControlName="fullName"
              type="text">
-      <label for="fullName">Full name</label>
+      <label for="fullName">{{'fullName' | translate}}</label>
     </div>
 
     <div class="md-form">
-      <mat-slide-toggle (change)="changeStatus($event)" [checked]="(user.status === 1)" color="primary"> Status
+      <input mdbInput mdbValidate id="email" name="email" class="form-control" formControlName="email" type="text">
+      <label for="email">{{'email' | translate}}</label>
+    </div>
+
+    <div class="md-form">
+      <mat-slide-toggle (change)="changeStatus($event)" [checked]="(user.status === 1)" color="primary"> {{'status' |
+        translate}}
       </mat-slide-toggle>
     </div>
 
     <div class="aligned-buttons">
       <button mdbBtn type="button" outline="true" color="info" class="waves-effect z-depth-0 pull-left"
               mdbWavesEffect (click)="onNoClick()">
-        <em class="far fa-window-close"></em> Cancel
+        <em class="far fa-window-close"></em>
+        {{'cancel' | translate}}
       </button>
 
       <div class="pull-right">
         <button mdbBtn type="button" color="danger" class="waves-effect z-depth-0" mdbWavesEffect
                 (click)="delete()">
-          <em class="far fa-trash-alt"></em> Delete
+          <em class="far fa-trash-alt"></em>
+          {{'delete' | translate}}
         </button>
         <button mdbBtn type="submit" color="info" class="waves-effect z-depth-0" mdbWavesEffect
                 [disabled]="!editUserForm.dirty">
-          <em class="far fa-save"></em> Save
+          <em class="far fa-save"></em>
+          {{'save' | translate}}
         </button>
       </div>
     </div>

@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {UserService} from '../config/user.service';
+import {UserService} from '../service/user.service';
 import {User} from '../model/user';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {AuthSharedService} from '../config/auth/auth-shared.service';
+import {AuthSharedService} from '../auth/auth-shared.service';
 import {MatDialog} from '@angular/material/dialog';
 import {EditUserModalComponent} from '../edit-user-modal/edit-user-modal.component';
 
@@ -16,7 +16,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   users: User[];
 
-  usersLength: number;
+  usersLength = 0;
 
   username: string;
 

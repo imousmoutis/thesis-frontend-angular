@@ -1,14 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginPageDto} from '../../dto/login-page.dto';
-import {IndexService} from '../../config/index.service';
+import {IndexService} from '../../service/index.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {AuthSharedService} from '../../config/auth/auth-shared.service';
+import {AuthSharedService} from '../../auth/auth-shared.service';
 import {Subscription} from 'rxjs';
 import {LoginUserDto} from '../../dto/login-user.dto';
 import {environment} from '../../../environments/environment';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login-page',
@@ -30,7 +31,7 @@ export class LoginPageComponent implements OnInit {
   clickEventSubscription: Subscription;
 
   constructor(private indexService: IndexService, private jwtHelper: JwtHelperService, private router: Router,
-              private snackBar: MatSnackBar, private authSharedService: AuthSharedService) {
+              private snackBar: MatSnackBar, private authSharedService: AuthSharedService, private translateService: TranslateService) {
 
     this.clickEventSubscription = this.authSharedService.loginRequest().subscribe((user) => {
       this.performLogin(user);
@@ -80,7 +81,7 @@ export class LoginPageComponent implements OnInit {
 
       this.authSharedService.setUserLoggedIn(true, decodedJwt.sub, decodedJwt.role1);
 
-      this.snackBar.open('You are successfully logged in.', 'Close', {
+      this.snackBar.open(this.translateService.instant('loginSuccessful'), this.translateService.instant('close'), {
         panelClass: ['success-snackbar']
       });
 

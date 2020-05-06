@@ -1,8 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginPageDto} from '../../dto/login-page.dto';
-import {IndexService} from '../../config/index.service';
-import {AuthSharedService} from '../../config/auth/auth-shared.service';
+import {IndexService} from '../../service/index.service';
+import {AuthSharedService} from '../../auth/auth-shared.service';
+import {TranslateService} from '@ngx-translate/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register-page',
@@ -19,7 +21,8 @@ export class RegisterPageComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(private indexService: IndexService, private authSharedService: AuthSharedService) {
+  constructor(private indexService: IndexService, private authSharedService: AuthSharedService,
+              private translateService: TranslateService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -66,6 +69,9 @@ export class RegisterPageComponent implements OnInit {
 
     if (this.registerForm.valid) {
       this.indexService.register(this.registerForm.value).subscribe(res => {
+        this.snackBar.open(this.translateService.instant('registerSuccessful'), this.translateService.instant('close'), {
+          panelClass: ['success-snackbar']
+        });
         this.authSharedService.sendLoginRequest(this.registerForm.value);
       });
     }

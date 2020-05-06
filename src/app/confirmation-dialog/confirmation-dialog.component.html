@@ -5,10 +5,10 @@
 <div mat-dialog-actions style="justify-content: center;">
   <button mdbBtn size="md" type="button" color="danger" class="waves-effect z-depth-0" mdbWavesEffect
           (click)="confirm()">
-    Yes
+    {{'yesMessage' | translate}}
   </button>
   <button mdbBtn size="md" type="button" color="info" class="waves-effect z-depth-0" mdbWavesEffect
           (click)="dismiss()">
-    No
+    {{'noMessage' | translate}}
   </button>
 </div>

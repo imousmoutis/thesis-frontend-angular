@@ -1,40 +1,38 @@
 <div class="col-md-6 offset-md-3 animated bounceInLeft">
   <div class="panel" id="loginbox">
     <div class="panel-heading">
-      <div class="panel-title text-center">Login using your credentials</div>
+      <div class="panel-title text-center">{{'loginHeader' | translate}}</div>
     </div>
     <div class="panel-body">
       <form class="text-center" [formGroup]="loginForm" (submit)="login()" novalidate>
         <div class="md-form">
           <input mdbInput mdbValidate id="username" name="username" class="form-control" formControlName="username"
                  type="text"/>
-          <label for="username">Username</label>
-          <mdb-error *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">Username is
-            required.
+          <label for="username">{{'username' | translate}}</label>
+          <mdb-error *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">{{'usernameRequired' | translate}}
           </mdb-error>
         </div>
 
         <div class="md-form">
           <input mdbInput mdbValidate id="password" name="password" class="form-control" formControlName="password"
                  type="password"/>
-          <label for="password">Password</label>
-          <mdb-error *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)">Password is
-            required.
+          <label for="password">{{'password' | translate}}</label>
+          <mdb-error *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)">{{'passwordRequired' | translate}}
           </mdb-error>
         </div>
 
-        <div class="alert alert-danger" role="alert" [hidden]="!loginErrorMessage">Please check your credentials.</div>
+        <div class="alert alert-danger" role="alert" [hidden]="!loginErrorMessage">{{'credentialsInvalid' | translate}}</div>
 
         <div class="aligned-buttons">
           <button mdbBtn type="button" outline="true" color="info" class="waves-effect z-depth-0 pull-left"
                   mdbWavesEffect (click)="changeLoginPageStatus()">
             <em class="fa fa-book"></em>
-            New Here? Register!
+            {{'registerButton' | translate}}
           </button>
           <button mdbBtn type="submit" color="info" class="waves-effect z-depth-0 pull-right" mdbWavesEffect>
             <em
               class="fa fa-key"></em>
-            Log in!
+            {{'login' | translate}}
           </button>
         </div>
       </form>

@@ -2,9 +2,10 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {User} from '../model/user';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../config/user.service';
+import {UserService} from '../service/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-user-modal',
@@ -16,7 +17,8 @@ export class EditUserModalComponent implements OnInit {
   editUserForm: FormGroup;
 
   constructor(public matDialog: MatDialogRef<EditUserModalComponent>, @Inject(MAT_DIALOG_DATA) public user: User,
-              private userService: UserService, private snackBar: MatSnackBar, private dialog: MatDialog) {
+              private userService: UserService, private snackBar: MatSnackBar, private dialog: MatDialog,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class EditUserModalComponent implements OnInit {
   update() {
     this.user.username = this.editUserForm.controls.username.value;
     this.userService.updateUser(this.user).subscribe(res => {
-      this.snackBar.open('User successfully saved.', 'Close', {
+      this.snackBar.open(this.translateService.instant('saveUserSuccessful'), this.translateService.instant('close'), {
         panelClass: ['success-snackbar']
       });
       this.matDialog.close(res);
@@ -53,13 +55,13 @@ export class EditUserModalComponent implements OnInit {
   delete() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       maxWidth: '400px',
-      data: 'Are you sure you want to delete the user?'
+      data: this.translateService.instant('deleteUserConfirmation')
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
         this.userService.deleteUser(this.user.id).subscribe(res => {
-          this.snackBar.open('User successfully deleted.', 'Close', {
+          this.snackBar.open(this.translateService.instant('deleteUserSuccessful'), this.translateService.instant('close'), {
             panelClass: ['success-snackbar']
           });
           this.matDialog.close(res);

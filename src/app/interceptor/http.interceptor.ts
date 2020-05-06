@@ -4,17 +4,18 @@ import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
 export class HttpInterceptor implements HttpInterceptor {
 
-  constructor(public router: Router, private snackBar: MatSnackBar) {
+  constructor(public router: Router, private snackBar: MatSnackBar, private translateService: TranslateService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error) => {
-        this.snackBar.open('An error occurred while serving your request. Please try again or contact your administrator.', 'Close', {
+        this.snackBar.open(this.translateService.instant('genericError'), this.translateService.instant('close'), {
           panelClass: ['error-snackbar']
         });
         return throwError(error.message);

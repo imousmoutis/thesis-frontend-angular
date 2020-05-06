@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../config/auth/auth.service';
+import {AuthService} from '../../auth/auth.service';
 import {Router} from '@angular/router';
-import {IndexService} from '../../config/index.service';
-import {RoleService} from '../../config/auth/role.service';
+import {IndexService} from '../../service/index.service';
+import {RoleService} from '../../auth/role.service';
 import {environment} from '../../../environments/environment';
-import {AuthSharedService} from '../../config/auth/auth-shared.service';
+import {AuthSharedService} from '../../auth/auth-shared.service';
 
 @Component({
   selector: 'app-navbar',

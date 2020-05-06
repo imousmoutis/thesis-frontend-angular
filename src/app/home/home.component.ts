@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
-import {IndexService} from '../config/index.service';
+import {IndexService} from '../service/index.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -9,16 +10,18 @@ import {IndexService} from '../config/index.service';
 })
 export class HomeComponent implements OnInit {
 
-  serverStatus = 'Connecting with server...';
+  serverStatus: string;
 
-  constructor(public homeService: IndexService) {
+  constructor(public homeService: IndexService, private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
+    this.serverStatus = this.translateService.instant('serverConnection');
+
     this.homeService.getServerStatus().subscribe(res => {
       this.serverStatus = res;
     }, error => {
-      this.serverStatus = 'Server is down. Contact the administrator.';
+      this.serverStatus = this.translateService.instant('serverStatus');
     });
   }
 
