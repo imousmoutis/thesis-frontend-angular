@@ -16,7 +16,7 @@ export class UserService {
   }
 
   getUsers(page: number, size: number, sort: string, sortDirection: string): Observable<UserList> {
-    return this.http.get<UserList>(environment.baseUrl + 'user/', {
+    return this.http.get<UserList>(environment.baseUrl + 'user', {
       headers: {Authorization: localStorage.getItem('jwt')},
       params: new HttpParams().set('page', String(page)).set('size', String(size)).set('sortColumn', sort).set('sortOrder', sortDirection)
     }).pipe(
@@ -24,15 +24,15 @@ export class UserService {
     );
   }
 
-  saveUser(user: User): Observable<string> {
-    return this.http.post(environment.baseUrl + 'user/', user, {
-      responseType: 'text', headers: {Authorization: localStorage.getItem('jwt')}
+  updateUser(user: User): Observable<any> {
+    return this.http.post(environment.baseUrl + 'user', user, {
+      headers: {Authorization: localStorage.getItem('jwt')}
     });
   }
 
-  deleteUser(userId: string): Observable<string> {
+  deleteUser(userId: string): Observable<any> {
     return this.http.delete(environment.baseUrl + 'user/' + userId, {
-      responseType: 'text', headers: {Authorization: localStorage.getItem('jwt')}
+      headers: {Authorization: localStorage.getItem('jwt')}
     });
   }
 

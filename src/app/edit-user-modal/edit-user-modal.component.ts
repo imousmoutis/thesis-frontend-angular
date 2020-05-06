@@ -42,7 +42,7 @@ export class EditUserModalComponent implements OnInit {
 
   update() {
     this.user.username = this.editUserForm.controls.username.value;
-    this.userService.saveUser(this.user).subscribe(res => {
+    this.userService.updateUser(this.user).subscribe(res => {
       this.snackBar.open('User successfully saved.', 'Close', {
         panelClass: ['success-snackbar']
       });

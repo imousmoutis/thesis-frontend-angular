@@ -17,11 +17,11 @@ export class IndexService {
   }
 
   login(user): Observable<any> {
-    return this.http.post(environment.baseUrl + 'login/', user, {observe: 'response'});
+    return this.http.post(environment.baseUrl + 'login', user, {observe: 'response'});
   }
 
   register(user): Observable<string> {
-    return this.http.post(environment.baseUrl + 'register/', user, {responseType: 'text'});
+    return this.http.post(environment.baseUrl + 'register', user, {responseType: 'text'});
   }
 
   logout(): Observable<any> {
