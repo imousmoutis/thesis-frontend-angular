@@ -5,7 +5,6 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
-import {AuthGuardService} from './auth/auth-guard.service';
 import {LoginGuardService} from './auth/login-guard.service';
 import {AdminComponent} from './admin/admin.component';
 import {RoleGuardService} from './auth/role-guard.service';

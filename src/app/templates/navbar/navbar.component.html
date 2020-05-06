@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark primary-color scrolling-navbar" [containerInside]="true">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark primary-color scrolling-navbar">
   <div class="container">
 
     <a [routerLink]="['']" class="navbar-brand">My App</a>
@@ -11,29 +11,44 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item navbar-li">
           <a [routerLink]="['']" [routerLinkActive]="['active-link']" [routerLinkActiveOptions]="{ exact: true }"
-             class="nav-link">Home
+             class="nav-link">{{'home'| translate}}
           </a>
         </li>
         <li class="nav-item navbar-li" *ngIf="!authService.isAuthenticated()">
           <a [routerLink]="['login']" [routerLinkActive]="['active-link']"
-             [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Login
+             [routerLinkActiveOptions]="{ exact: true }" class="nav-link">{{'login'| translate}}
           </a>
         </li>
         <li class="nav-item navbar-li" *ngIf="hasUserRole()">
           <a [routerLink]="['dashboard']" [routerLinkActive]="['active-link']"
-             [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Dashboard
+             [routerLinkActiveOptions]="{ exact: true }" class="nav-link">{{'dashboard'| translate}}
           </a>
         </li>
         <li class="nav-item navbar-li" *ngIf="hasAdministratorRole()">
           <a [routerLink]="['admin']" [routerLinkActive]="['active-link']"
-             [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Admin
+             [routerLinkActiveOptions]="{ exact: true }" class="nav-link">{{'admin'| translate}}
           </a>
         </li>
         <li class="nav-item navbar-li" *ngIf="authService.isAuthenticated()">
-          <a (click)="logout()" class="nav-link">Logout
+          <a (click)="logout()" class="nav-link">{{'home'| translate}}
           </a>
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{'language' | translate}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a *ngFor="let language of languages" class="dropdown-item" [ngClass]="{active: language.locale === selectedLanguage}"
+               href="javascript:void(0);"
+               (click)="changeLanguage(language.locale)">{{language.name | translate}}</a>
+          </div>
+        </li>
       </ul>
+
+
     </div>
+
+
   </div>
 </nav>
