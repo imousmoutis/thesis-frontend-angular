@@ -56,16 +56,16 @@ export class AdminComponent implements OnInit, AfterViewInit {
       this.sort.start);
   }
 
-  editUser(user: User){
+  editUser(user: User) {
     const dialogRef = this.matDialog.open(EditUserModalComponent, {
       width: '85%',
       data: user
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     if (result){
-       this.changePage();
-     }
+      if (result) {
+        this.changePage();
+      }
     });
   }
 

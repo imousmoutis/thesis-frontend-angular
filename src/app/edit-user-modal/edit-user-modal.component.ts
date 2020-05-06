@@ -1,9 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {User} from '../model/user';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../config/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-edit-user-modal',
@@ -15,7 +16,7 @@ export class EditUserModalComponent implements OnInit {
   editUserForm: FormGroup;
 
   constructor(public matDialog: MatDialogRef<EditUserModalComponent>, @Inject(MAT_DIALOG_DATA) public user: User,
-              private userService: UserService, private snackBar: MatSnackBar) {
+              private userService: UserService, private snackBar: MatSnackBar, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -46,6 +47,24 @@ export class EditUserModalComponent implements OnInit {
         panelClass: ['success-snackbar']
       });
       this.matDialog.close(res);
+    });
+  }
+
+  delete() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: '400px',
+      data: 'Are you sure you want to delete the user?'
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult) {
+        this.userService.deleteUser(this.user.id).subscribe(res => {
+          this.snackBar.open('User successfully deleted.', 'Close', {
+            panelClass: ['success-snackbar']
+          });
+          this.matDialog.close(res);
+        });
+      }
     });
   }
 

@@ -33,7 +33,8 @@
       </button>
 
       <div class="pull-right">
-        <button mdbBtn type="button" color="danger" class="waves-effect z-depth-0" mdbWavesEffect>
+        <button mdbBtn type="button" color="danger" class="waves-effect z-depth-0" mdbWavesEffect
+                (click)="delete()">
           <em class="far fa-trash-alt"></em> Delete
         </button>
         <button mdbBtn type="submit" color="info" class="waves-effect z-depth-0" mdbWavesEffect
@@ -41,8 +42,6 @@
           <em class="far fa-save"></em> Save
         </button>
       </div>
-
-
     </div>
   </form>
 </div>

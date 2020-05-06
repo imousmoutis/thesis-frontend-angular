@@ -2,6 +2,7 @@ import {UserAttribute} from './user-attribute';
 import {Deserializable} from './deserializable';
 
 export class User implements Deserializable {
+  id: string;
   username: string;
   status: number;
   userAttributes: UserAttribute[];

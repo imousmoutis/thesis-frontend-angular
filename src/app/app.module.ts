@@ -32,6 +32,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { EditUserModalComponent } from './edit-user-modal/edit-user-modal.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     RegisterPageComponent,
     DashboardComponent,
     AdminComponent,
-    EditUserModalComponent
+    EditUserModalComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,

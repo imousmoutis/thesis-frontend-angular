@@ -30,4 +30,10 @@ export class UserService {
     });
   }
 
+  deleteUser(userId: string): Observable<string> {
+    return this.http.delete(environment.baseUrl + 'user/' + userId, {
+      responseType: 'text', headers: {Authorization: localStorage.getItem('jwt')}
+    });
+  }
+
 }
