@@ -3,7 +3,7 @@ import {Deserializable} from './deserializable';
 
 export class User implements Deserializable {
   username: string;
-  status: boolean;
+  status: number;
   userAttributes: UserAttribute[];
 
   deserialize(input: any): this {

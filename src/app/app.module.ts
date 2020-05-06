@@ -30,6 +30,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { EditUserModalComponent } from './edit-user-modal/edit-user-modal.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     LoginPageComponent,
     RegisterPageComponent,
     DashboardComponent,
-    AdminComponent
+    AdminComponent,
+    EditUserModalComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDialogModule
   ],
   providers: [IndexService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
     JwtHelperService, AuthService, AuthGuardService, RoleService, RoleGuardService, LoginGuardService, {

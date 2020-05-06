@@ -4,6 +4,8 @@ import {User} from '../model/user';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {AuthSharedService} from '../config/auth/auth-shared.service';
+import {MatDialog} from '@angular/material/dialog';
+import {EditUserModalComponent} from '../edit-user-modal/edit-user-modal.component';
 
 @Component({
   selector: 'app-admin',
@@ -18,13 +20,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   username: string;
 
-  displayedColumns: string[] = ['username', 'fullName', 'email', 'status'];
+  displayedColumns: string[] = ['username', 'fullName', 'email', 'status', 'actions'];
 
   @ViewChild(MatSort) sort: MatSort;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private userService: UserService, public authSharedService: AuthSharedService) {
+  constructor(private userService: UserService, public authSharedService: AuthSharedService, private matDialog: MatDialog) {
     this.username = this.authSharedService.username;
   }
 
@@ -52,6 +54,19 @@ export class AdminComponent implements OnInit, AfterViewInit {
   changePage() {
     this.fetchData(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active,
       this.sort.start);
+  }
+
+  editUser(user: User){
+    const dialogRef = this.matDialog.open(EditUserModalComponent, {
+      width: '85%',
+      data: user
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     if (result){
+       this.changePage();
+     }
+    });
   }
 
 }

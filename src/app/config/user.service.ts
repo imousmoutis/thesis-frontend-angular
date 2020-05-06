@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {UserList} from '../model/user-list';
+import {User} from '../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,12 @@ export class UserService {
     }).pipe(
       map(res => new UserList().deserialize(res))
     );
+  }
+
+  saveUser(user: User): Observable<string> {
+    return this.http.post(environment.baseUrl + 'user/', user, {
+      responseType: 'text', headers: {Authorization: localStorage.getItem('jwt')}
+    });
   }
 
 }
