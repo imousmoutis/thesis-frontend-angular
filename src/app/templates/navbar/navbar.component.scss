@@ -1,9 +1,14 @@
 $background_color_1: #2270bd;
 
 .navbar {
-  min-height: 60px;
   background-color: $background_color_1 !important;
   border-width: 0;
+}
+
+@media (min-width: 992px){
+  .navbar-expand-lg {
+    min-height: 60px !important;
+  }
 }
 
 .navbar-brand {
@@ -28,6 +33,8 @@ $background_color_1: #2270bd;
 
 .navbar-toggler {
   border-color: white !important;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 .navbar-toggler-icon {
@@ -38,7 +45,7 @@ $background_color_1: #2270bd;
   background-color: #ffffff40;
 }
 
-.navbar-li > a, .navbar-header > a {
+.navbar-li > a, .navbar-header > a, .dropdown > a {
   color: white;
   background-color: transparent !important;
   font-weight: 600 !important;
@@ -51,4 +58,35 @@ $background_color_1: #2270bd;
 
 .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
   color: white;
+}
+
+.dropdown-menu {
+  background-color: $background_color_1 !important;
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.dropdown-item {
+  color: white;
+  font-size: 14px;
+  font-weight: 600 !important;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
+}
+
+@media (max-width: 991.98px){
+  .dropdown-menu {
+    border: 1px solid transparent;
+    padding: 0;
+  }
 }

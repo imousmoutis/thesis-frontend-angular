@@ -11,41 +11,50 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item navbar-li">
           <a [routerLink]="['']" [routerLinkActive]="['active-link']" [routerLinkActiveOptions]="{ exact: true }"
-             class="nav-link">{{'home'| translate}}
+             class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">{{'home'| translate}}
           </a>
         </li>
         <li class="nav-item navbar-li" *ngIf="!authService.isAuthenticated()">
           <a [routerLink]="['login']" [routerLinkActive]="['active-link']"
-             [routerLinkActiveOptions]="{ exact: true }" class="nav-link">{{'login'| translate}}
+             [routerLinkActiveOptions]="{ exact: true }" class="nav-link" data-toggle="collapse"
+             data-target=".navbar-collapse.show">{{'login'| translate}}
           </a>
         </li>
         <li class="nav-item navbar-li" *ngIf="hasUserRole()">
           <a [routerLink]="['dashboard']" [routerLinkActive]="['active-link']"
-             [routerLinkActiveOptions]="{ exact: true }" class="nav-link">{{'dashboard'| translate}}
+             [routerLinkActiveOptions]="{ exact: true }" class="nav-link" data-toggle="collapse"
+             data-target=".navbar-collapse.show">{{'dashboard'| translate}}
           </a>
         </li>
         <li class="nav-item navbar-li" *ngIf="hasAdministratorRole()">
           <a [routerLink]="['admin']" [routerLinkActive]="['active-link']"
-             [routerLinkActiveOptions]="{ exact: true }" class="nav-link">{{'admin'| translate}}
+             [routerLinkActiveOptions]="{ exact: true }" class="nav-link" data-toggle="collapse"
+             data-target=".navbar-collapse.show">{{'admin'| translate}}
           </a>
         </li>
         <li class="nav-item navbar-li" *ngIf="authService.isAuthenticated()">
-          <a (click)="logout()" class="nav-link">{{'home'| translate}}
+          <a (click)="logout()" class="nav-link" data-toggle="collapse"
+             data-target=".navbar-collapse.show">{{'home'| translate}}
           </a>
-        </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{'language' | translate}}
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a *ngFor="let language of languages" class="dropdown-item" [ngClass]="{active: language.locale === selectedLanguage}"
-               href="javascript:void(0);"
-               (click)="changeLanguage(language.locale)">{{language.name | translate}}</a>
-          </div>
         </li>
       </ul>
 
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            {{'language' | translate}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a *ngFor="let language of languages" class="dropdown-item"
+               [ngClass]="{'active-link': language.locale === selectedLanguage}"
+               href="javascript:void(0);"
+               (click)="changeLanguage(language.locale)" data-toggle="collapse"
+               data-target=".navbar-collapse.show">{{language.name | translate}}</a>
+          </div>
+        </li>
+
+      </ul>
 
     </div>
 
