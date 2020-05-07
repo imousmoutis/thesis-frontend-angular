@@ -15,10 +15,11 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  getUsers(page: number, size: number, sort: string, sortDirection: string): Observable<UserList> {
+  getUsers(page: number, size: number, sort: string, sortDirection: string, username: string): Observable<UserList> {
     return this.http.get<UserList>(environment.baseUrl + 'user', {
       headers: {Authorization: localStorage.getItem('jwt')},
-      params: new HttpParams().set('page', String(page)).set('size', String(size)).set('sortColumn', sort).set('sortOrder', sortDirection)
+      params: new HttpParams().set('page', String(page)).set('size', String(size)).set('sortColumn', sort).set('sortOrder',
+        sortDirection).set('username', username)
     }).pipe(
       map(res => new UserList().deserialize(res))
     );

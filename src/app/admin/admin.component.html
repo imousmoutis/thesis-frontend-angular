@@ -1,7 +1,16 @@
 <h2>{{'greeting' | translate}}, {{username}}!</h2>
 
 <h3>{{'adminPageHeading1' | translate}} {{usersLength}} {{'adminPageHeading2' | translate}}</h3>
-<br/>
+
+<form class="col-md-6 offset-md-6"  [formGroup]="searchForm">
+
+  <div class="md-form">
+    <i class="fas fa-search prefix"></i>
+    <input mdbInput id="searchBox" class="form-control" type="text" formControlName="search"/>
+    <label for="searchBox">{{'searchUsersBox' | translate}}</label>
+  </div>
+
+</form>
 
 <table mat-table [dataSource]="users" matSort matSortActive="username" matSortDirection="asc"
        matSortStart="asc"

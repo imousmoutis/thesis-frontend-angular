@@ -6,6 +6,7 @@ import {MatSort} from '@angular/material/sort';
 import {AuthSharedService} from '../auth/auth-shared.service';
 import {MatDialog} from '@angular/material/dialog';
 import {EditUserModalComponent} from '../edit-user-modal/edit-user-modal.component';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
@@ -22,6 +23,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['username', 'fullName', 'email', 'status', 'actions'];
 
+  searchForm: FormGroup;
+
   @ViewChild(MatSort) sort: MatSort;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -31,6 +34,14 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.searchForm = new FormGroup({
+      search: new FormControl('')
+    });
+
+    this.searchForm.valueChanges.subscribe(data => {
+      this.paginator.pageIndex = 0;
+      this.changePage();
+    });
   }
 
   ngAfterViewInit(): void {
@@ -43,7 +54,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   fetchData(page: number, size: number, sort: string, sortDirection: string) {
-    this.userService.getUsers(page, size, sort, sortDirection)
+    this.userService.getUsers(page, size, sort, sortDirection, this.searchForm.value.search)
     .subscribe(data => {
       this.users = data.content;
       this.paginator.length = data.totalElements;
