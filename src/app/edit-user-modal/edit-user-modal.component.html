@@ -6,7 +6,12 @@
              type="text"/>
       <label for="username">{{'username' | translate}}</label>
       <mdb-error
-        *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">{{'usernameRequired' | translate}}
+        *ngIf="usernameField.errors?.required && (usernameField.dirty || usernameField.touched)">{{'usernameRequired' |
+        translate}}
+      </mdb-error>
+      <mdb-error
+        *ngIf="usernameField.errors?.unique && (usernameField.dirty || usernameField.touched)">{{'usernameExists' |
+        translate}}
       </mdb-error>
     </div>
 

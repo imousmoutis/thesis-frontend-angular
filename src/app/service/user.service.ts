@@ -36,4 +36,10 @@ export class UserService {
     });
   }
 
+  uniqueUser(term: string): Observable<boolean> {
+    return this.http.get<boolean>(environment.baseUrl + 'user/unique', {
+      params: new HttpParams().set('term', term)
+    });
+  }
+
 }

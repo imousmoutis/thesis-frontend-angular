@@ -37,6 +37,7 @@ import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {environment} from '../environments/environment';
 import {MatPaginatorIntlService} from './service/mat-paginator-intl.service';
+import {UniqueUsernameValidator} from './validator/unique-username.validator';
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.baseUrl + 'lexicon?lang=', '');
@@ -92,7 +93,7 @@ export function createCustomMatPaginatorIntl(translateService: TranslateService)
         verticalPosition: 'top',
         horizontalPosition: 'end'
       }
-    }, {provide: MatPaginatorIntl, deps: [TranslateService], useFactory: createCustomMatPaginatorIntl}],
+    }, {provide: MatPaginatorIntl, deps: [TranslateService], useFactory: createCustomMatPaginatorIntl}, UniqueUsernameValidator],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
