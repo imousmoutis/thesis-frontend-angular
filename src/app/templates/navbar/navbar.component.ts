@@ -9,6 +9,7 @@ import {Title} from '@angular/platform-browser';
 import {TranslateService} from '@ngx-translate/core';
 import {LexiconService} from '../../service/lexicon.service';
 import {Language} from '../../model/language';
+import {DateAdapter} from '@angular/material/core';
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +24,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private router: Router, private indexService: IndexService, private authSharedService: AuthSharedService,
               public authService: AuthService, private roleService: RoleService, private title: Title,
-              private translateService: TranslateService, private lexiconService: LexiconService) {
+              private translateService: TranslateService, private lexiconService: LexiconService, private dateAdapter: DateAdapter<Date>) {
   }
 
   ngOnInit(): void {
@@ -41,11 +42,13 @@ export class NavbarComponent implements OnInit {
     this.translateService.onDefaultLangChange.subscribe(event => {
       this.selectedLanguage = event.lang;
       this.setTitle(this.router.url);
+      this.setDatePickerLanguage();
     });
 
     this.translateService.onLangChange.subscribe(event => {
       this.selectedLanguage = event.lang;
       this.setTitle(this.router.url);
+      this.setDatePickerLanguage();
     });
   }
 
@@ -79,6 +82,14 @@ export class NavbarComponent implements OnInit {
 
   changeLanguage(lang: string): void {
     this.translateService.use(lang);
+  }
+
+  setDatePickerLanguage() {
+    if (this.selectedLanguage === 'gr') {
+      this.dateAdapter.setLocale('el');
+    } else {
+      this.dateAdapter.setLocale('en-GB');
+    }
   }
 
 }

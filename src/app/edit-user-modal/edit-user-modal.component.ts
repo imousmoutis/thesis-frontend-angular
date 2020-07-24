@@ -29,31 +29,26 @@ export class EditUserModalComponent implements OnInit {
     this.editUserForm = new FormGroup({
       username: new FormControl(this.user.username, Validators.required, this.uniqueUsernameValidator.checkUsername.bind(this)),
       fullName: new FormControl({value: this.user.findAttribute('fullName'), disabled: true}),
-      email: new FormControl({value: this.user.findAttribute('email'), disabled: true})
+      email: new FormControl({value: this.user.findAttribute('email'), disabled: true}),
+      status: new FormControl(this.user.status === 1)
     });
-  }
-
-  get usernameField() {
-    return this.editUserForm.get('username');
   }
 
   onNoClick(): void {
     this.matDialog.close();
   }
 
-  changeStatus(event) {
-    this.user.status = event.checked ? 1 : 0;
-    this.editUserForm.markAsDirty();
-  }
-
   update() {
     this.user.username = this.editUserForm.controls.username.value;
-    this.userService.updateUser(this.user).subscribe(res => {
-      this.snackBar.open(this.translateService.instant('saveUserSuccessful'), this.translateService.instant('close'), {
-        panelClass: ['success-snackbar']
+
+    if (this.editUserForm.valid) {
+      this.userService.updateUser(this.user).subscribe(res => {
+        this.snackBar.open(this.translateService.instant('saveUserSuccessful'), this.translateService.instant('close'), {
+          panelClass: ['success-snackbar']
+        });
+        this.matDialog.close(res);
       });
-      this.matDialog.close(res);
-    });
+    }
   }
 
   delete() {

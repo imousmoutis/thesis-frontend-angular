@@ -38,6 +38,15 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {environment} from '../environments/environment';
 import {MatPaginatorIntlService} from './service/mat-paginator-intl.service';
 import {UniqueUsernameValidator} from './validator/unique-username.validator';
+import {ErrorComponent} from './error/error.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatListModule} from '@angular/material/list';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {DatePipe} from '@angular/common';
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.baseUrl + 'lexicon?lang=', '');
@@ -59,7 +68,8 @@ export function createCustomMatPaginatorIntl(translateService: TranslateService)
     DashboardComponent,
     AdminComponent,
     EditUserModalComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +90,14 @@ export function createCustomMatPaginatorIntl(translateService: TranslateService)
     MatDialogModule,
     TranslateModule.forRoot({
       loader: {provide: TranslateLoader, useFactory: TranslationLoaderFactory, deps: [HttpClient]}
-    })
+    }),
+    MatTabsModule,
+    MatListModule,
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [IndexService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
     JwtHelperService, AuthService, AuthGuardService, RoleService, RoleGuardService, LoginGuardService, {
@@ -93,7 +110,8 @@ export function createCustomMatPaginatorIntl(translateService: TranslateService)
         verticalPosition: 'top',
         horizontalPosition: 'end'
       }
-    }, {provide: MatPaginatorIntl, deps: [TranslateService], useFactory: createCustomMatPaginatorIntl}, UniqueUsernameValidator],
+    }, {provide: MatPaginatorIntl, deps: [TranslateService], useFactory: createCustomMatPaginatorIntl},
+    UniqueUsernameValidator, DatePipe],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

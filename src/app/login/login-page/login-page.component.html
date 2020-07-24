@@ -5,21 +5,24 @@
     </div>
     <div class="panel-body">
       <form class="text-center" [formGroup]="loginForm" (submit)="login()" novalidate>
-        <div class="md-form">
-          <input mdbInput mdbValidate id="username" name="username" class="form-control" formControlName="username"
-                 type="text"/>
-          <label for="username">{{'username' | translate}}</label>
-          <mdb-error *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">{{'usernameRequired' | translate}}
-          </mdb-error>
-        </div>
 
-        <div class="md-form">
-          <input mdbInput mdbValidate id="password" name="password" class="form-control" formControlName="password"
-                 type="password"/>
-          <label for="password">{{'password' | translate}}</label>
-          <mdb-error *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)">{{'passwordRequired' | translate}}
-          </mdb-error>
-        </div>
+        <mat-form-field>
+          <mat-label>{{'username' | translate}}</mat-label>
+          <input type="text" matInput formControlName="username"/>
+          <mat-error
+            *ngIf="loginForm.get('username').hasError('required')">
+            {{'usernameRequired' | translate}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{'password' | translate}}</mat-label>
+          <input type="text" matInput formControlName="password"/>
+          <mat-error
+            *ngIf="loginForm.get('password').hasError('required')">
+            {{'passwordRequired' | translate}}
+          </mat-error>
+        </mat-form-field>
 
         <div class="alert alert-danger" role="alert" [hidden]="!loginErrorMessage">{{'credentialsInvalid' | translate}}</div>
 

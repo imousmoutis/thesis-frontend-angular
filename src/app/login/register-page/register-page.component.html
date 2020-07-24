@@ -5,45 +5,54 @@
     </div>
     <div class="panel-body">
       <form class="text-center" [formGroup]="registerForm" (submit)="register()" novalidate>
-        <div class="md-form">
-          <input mdbInput mdbValidate id="username" name="username" class="form-control" formControlName="username"
-                 type="text"/>
-          <label for="username">{{'username' | translate}}</label>
-          <mdb-error
-            *ngIf="usernameField.errors?.required && (usernameField.dirty || usernameField.touched)">{{'usernameRequired' |
-            translate}}
-          </mdb-error>
-          <mdb-error
-            *ngIf="usernameField.errors?.unique && (usernameField.dirty || usernameField.touched)">{{'usernameExists' |
-            translate}}
-          </mdb-error>
-        </div>
 
-        <div class="md-form">
-          <input mdbInput mdbValidate id="fullName" name="fullName" class="form-control" formControlName="fullName"
-                 type="text">
-          <label for="fullName">{{'fullName' | translate}}</label>
-          <mdb-error
-            *ngIf="fullNameField.invalid && (fullNameField.dirty || fullNameField.touched)">{{'fullNameRequired'| translate}}
-          </mdb-error>
-        </div>
+        <mat-form-field>
+          <mat-label>{{'username' | translate}}</mat-label>
+          <input type="text" matInput formControlName="username"/>
+          <mat-error
+            *ngIf="registerForm.get('username').hasError('required')">
+            {{'usernameRequired' | translate}}
+          </mat-error>
+          <mat-error
+            *ngIf="registerForm.get('username').hasError('unique')">
+            {{'usernameExists' | translate}}
+          </mat-error>
+        </mat-form-field>
 
-        <div class="md-form">
-          <input mdbInput mdbValidate id="email" name="email" class="form-control" formControlName="email" type="text">
-          <label for="email">{{'email' | translate}}</label>
-          <mdb-error
-            *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)">{{'emailRequired'| translate}}
-          </mdb-error>
-        </div>
+        <mat-form-field>
+          <mat-label>{{'fullName' | translate}}</mat-label>
+          <input type="text" matInput formControlName="fullName"/>
+          <mat-error
+            *ngIf="registerForm.get('fullName').hasError('required')">
+            {{'fullNameRequired' | translate}}
+          </mat-error>
+        </mat-form-field>
 
-        <div class="md-form">
-          <input mdbInput mdbValidate id="password" name="password" class="form-control" formControlName="password"
-                 type="password">
-          <label for="password">{{'password' | translate}}</label>
-          <mdb-error
-            *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)">{{'passwordPatternInvalid' | translate}}
-          </mdb-error>
-        </div>
+        <mat-form-field>
+          <mat-label>{{'email' | translate}}</mat-label>
+          <input type="text" matInput formControlName="email"/>
+          <mat-error
+            *ngIf="registerForm.get('email').hasError('required')">
+            {{'emailRequired' | translate}}
+          </mat-error>
+          <mat-error
+            *ngIf="registerForm.get('email').hasError('email')">
+            {{'emailRequired' | translate}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{'password' | translate}}</mat-label>
+          <input type="text" matInput formControlName="password"/>
+          <mat-error
+            *ngIf="registerForm.get('password').hasError('required')">
+            {{'passwordPatternInvalid' | translate}}
+          </mat-error>
+          <mat-error
+            *ngIf="registerForm.get('password').hasError('pattern')">
+            {{'passwordPatternInvalid' | translate}}
+          </mat-error>
+        </mat-form-field>
 
         <div class="aligned-buttons">
           <button mdbBtn type="button" outline="true" color="info" class="waves-effect z-depth-0 pull-left"

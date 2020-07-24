@@ -45,14 +45,6 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
-  get usernameField() {
-    return this.loginForm.get('username');
-  }
-
-  get passwordField() {
-    return this.loginForm.get('password');
-  }
-
   changeLoginPageStatus() {
     const loginPageDto: LoginPageDto = {
       loginPage: false,

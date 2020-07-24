@@ -41,22 +41,6 @@ export class RegisterPageComponent implements OnInit {
     });
   }
 
-  get usernameField() {
-    return this.registerForm.get('username');
-  }
-
-  get emailField() {
-    return this.registerForm.get('email');
-  }
-
-  get fullNameField() {
-    return this.registerForm.get('fullName');
-  }
-
-  get passwordField() {
-    return this.registerForm.get('password');
-  }
-
   changeLoginPageStatus() {
     const loginPageDto: LoginPageDto = {
       loginPage: true,

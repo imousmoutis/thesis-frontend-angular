@@ -9,6 +9,7 @@ import {LoginGuardService} from './auth/login-guard.service';
 import {AdminComponent} from './admin/admin.component';
 import {RoleGuardService} from './auth/role-guard.service';
 import {environment} from '../environments/environment';
+import {ErrorComponent} from './error/error.component';
 
 const routes: Routes = [{path: '', component: HomeComponent}, {
   path: 'login',
@@ -28,6 +29,10 @@ const routes: Routes = [{path: '', component: HomeComponent}, {
   data: {
     expectedRole: environment.userAdmin
   }
+}, {
+  path        : '**',
+  pathMatch   : 'full',
+  component   : ErrorComponent
 }];
 
 @NgModule({

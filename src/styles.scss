@@ -10,10 +10,13 @@ html {
 }
 
 body {
-  margin-bottom: 80px;
   font-family: $font-family;
   font-size: 14px;
   line-height: 1.42857;
+}
+
+.container-div {
+  margin-bottom: 80px;
 }
 
 body::-webkit-scrollbar {
@@ -88,4 +91,8 @@ h4 {
 
 .error-snackbar span {
   color: #fff;
+}
+
+.text-center > mat-form-field {
+  width: 100% !important;
 }

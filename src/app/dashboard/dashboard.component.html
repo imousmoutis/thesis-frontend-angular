@@ -1,1 +1,70 @@
-<p>dashboard works!</p>
+<div class="col">
+  <h2>{{'greeting' | translate}}, {{username}}!</h2>
+  <h4>{{'dashboardHeader' | translate}}</h4>
+  <br/>
+
+  <mat-tab-group>
+
+    <mat-tab label="{{'overview' | translate}}">
+      Apple
+    </mat-tab>
+
+    <mat-tab label="{{'expensesFeed' | translate}}">
+      Banana
+    </mat-tab>
+
+    <mat-tab label="{{'newExpense' | translate}}">
+      <div class="container">
+        <br/>
+        <form class="text-center" [formGroup]="newExpenseForm" (submit)="submitExpense()" novalidate>
+
+          <mat-form-field>
+            <mat-label>{{'amount' | translate}}</mat-label>
+            <input type="number" matInput formControlName="amount"/>
+            <mat-error
+              *ngIf="newExpenseForm.get('amount').hasError('required')">
+              {{'amountRequired' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput [max]="today" [matDatepicker]="picker" placeholder="{{'date' | translate}}"
+                   formControlName="date" readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{'category' | translate}}</mat-label>
+            <mat-select formControlName="category">
+              <mat-option [value]="">
+                {{'category'| translate}}
+              </mat-option>
+              <mat-option *ngFor="let e of expenseCategories" [value]="e.id">
+                {{e.name | translate}}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="newExpenseForm.get('category').hasError('required')">
+              {{'categoryRequired' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{'description' | translate}}</mat-label>
+            <textarea matInput formControlName="description" rows="3"></textarea>
+          </mat-form-field>
+
+          <button mdbBtn type="submit" color="info" class="waves-effect z-depth-0 pull-left" mdbWavesEffect>
+            <em
+              class="fa fa-save"></em>
+            {{'submitExpense' | translate}}
+          </button>
+
+        </form>
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

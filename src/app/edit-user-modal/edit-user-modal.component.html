@@ -1,35 +1,32 @@
 <h3>{{'editUser' | translate}}</h3>
 <div mat-dialog-content>
   <form class="text-center" [formGroup]="editUserForm" (submit)="update()" novalidate>
-    <div class="md-form">
-      <input mdbInput mdbValidate id="username" name="username" class="form-control" formControlName="username"
-             type="text"/>
-      <label for="username">{{'username' | translate}}</label>
-      <mdb-error
-        *ngIf="usernameField.errors?.required && (usernameField.dirty || usernameField.touched)">{{'usernameRequired' |
-        translate}}
-      </mdb-error>
-      <mdb-error
-        *ngIf="usernameField.errors?.unique && (usernameField.dirty || usernameField.touched)">{{'usernameExists' |
-        translate}}
-      </mdb-error>
-    </div>
 
-    <div class="md-form">
-      <input mdbInput mdbValidate id="fullName" name="fullName" class="form-control" formControlName="fullName"
-             type="text" readonly>
-      <label for="fullName">{{'fullName' | translate}}</label>
-    </div>
+    <mat-form-field>
+      <mat-label>{{'username' | translate}}</mat-label>
+      <input type="text" matInput formControlName="username"/>
+      <mat-error
+        *ngIf="editUserForm.get('username').hasError('required')">
+        {{'usernameRequired' | translate}}
+      </mat-error>
+      <mat-error
+        *ngIf="editUserForm.get('username').hasError('unique')">
+        {{'usernameExists' | translate}}
+      </mat-error>
+    </mat-form-field>
 
-    <div class="md-form">
-      <input mdbInput mdbValidate id="email" name="email" class="form-control" formControlName="email" type="text">
-      <label for="email">{{'email' | translate}}</label>
-    </div>
+    <mat-form-field>
+      <mat-label>{{'fullName' | translate}}</mat-label>
+      <input type="text" matInput formControlName="fullName" readonly/>
+    </mat-form-field>
 
-    <div class="md-form">
-      <mat-slide-toggle (change)="changeStatus($event)" [checked]="(user.status === 1)" color="primary"> {{'status' |
-        translate}}
-      </mat-slide-toggle>
+    <mat-form-field>
+      <mat-label>{{'email' | translate}}</mat-label>
+      <input type="text" matInput formControlName="email" readonly/>
+    </mat-form-field>
+
+    <div style="text-align: left; padding-bottom: 8px;">
+      <mat-slide-toggle formControlName="status">{{'status' | translate}}</mat-slide-toggle>
     </div>
 
     <div class="aligned-buttons">
