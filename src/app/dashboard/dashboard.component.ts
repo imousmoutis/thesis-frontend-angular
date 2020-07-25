@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthSharedService} from '../auth/auth-shared.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {ExpenseService} from '../service/expense.service';
 import {ExpenseCategory} from '../model/expense-category';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TranslateService} from '@ngx-translate/core';
-import {Expense} from '../model/expense';
-import {DatePipe} from '@angular/common';
+import {ExpenseList} from '../model/expense-list';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,17 +23,37 @@ export class DashboardComponent implements OnInit {
 
   today = new Date();
 
+  selectedPage = 0;
+
+  pageSize = 25;
+
+  userExpenses = new ExpenseList();
+
+  currentlyOpenedItemIndex = -1;
+
+  expensesPaginatedPages: number[];
+
+  @ViewChild('paginator') paginator: MatPaginator;
+
+  @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
+
   constructor(private expenseService: ExpenseService, public authSharedService: AuthSharedService, private snackBar: MatSnackBar,
-              private translateService: TranslateService, private datePipe: DatePipe) {
+              private translateService: TranslateService) {
     this.username = this.authSharedService.username;
+    this.userExpenses.size = 0;
   }
 
   ngOnInit(): void {
-
     this.expenseService.getExpenseCategories().subscribe(data => {
       this.expenseCategories = data;
     });
 
+    this.initNewExpenseForm();
+
+    this.loadUserExpenses();
+  }
+
+  initNewExpenseForm() {
     this.newExpenseForm = new FormGroup({
       amount: new FormControl('', Validators.required),
       date: new FormControl(this.today, Validators.required),
@@ -43,20 +63,68 @@ export class DashboardComponent implements OnInit {
   }
 
   submitExpense() {
-    this.newExpenseForm.controls.amount.markAsTouched();
-    this.newExpenseForm.controls.category.markAsTouched();
-
-    console.log(this.datePipe.transform(this.newExpenseForm.value.date));
-
     if (this.newExpenseForm.valid) {
-      this.expenseService.saveExpense(
-        new Expense(this.newExpenseForm.value.amount, this.newExpenseForm.value.category,
-          this.datePipe.transform(this.newExpenseForm.value.date, 'dd/MM/yyyy'),
-          this.newExpenseForm.value.description)).subscribe(res => {
+      this.expenseService.saveExpense(this.newExpenseForm.value).subscribe(res => {
         this.snackBar.open(this.translateService.instant('newExpenseSuccessful'), this.translateService.instant('close'), {
           panelClass: ['success-snackbar']
         });
+        this.formGroupDirective.resetForm();
+        this.initNewExpenseForm();
+        this.loadUserExpenses();
       });
+    }
+  }
+
+  loadUserExpenses() {
+    this.expenseService.getUserExpenses(this.selectedPage, this.pageSize).subscribe(res => {
+      this.userExpenses = res;
+
+      if (this.userExpenses.size > 0) {
+        this.generateExpensesPagination();
+      }
+    });
+  }
+
+  setOpened(itemIndex) {
+    this.currentlyOpenedItemIndex = itemIndex;
+  }
+
+  setClosed(itemIndex) {
+    if (this.currentlyOpenedItemIndex === itemIndex) {
+      this.currentlyOpenedItemIndex = -1;
+    }
+  }
+
+  getTranslatedCategory(id) {
+    return this.translateService.instant(this.expenseCategories[this.expenseCategories.findIndex(x => x.id === id)].name);
+  }
+
+  deleteExpense(id) {
+    this.expenseService.deleteExpense(id).subscribe(res => {
+      this.snackBar.open(this.translateService.instant('deleteExpenseSuccessful'), this.translateService.instant('close'), {
+        panelClass: ['success-snackbar']
+      });
+      this.loadUserExpenses();
+    });
+  }
+
+  changePage(e) {
+    this.selectedPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.loadUserExpenses();
+  }
+
+  generateExpensesPagination() {
+    this.expensesPaginatedPages = [];
+
+    for (let i = 0; i < Math.ceil(this.userExpenses.size / this.pageSize); i++) {
+      this.expensesPaginatedPages.push(i);
+    }
+
+    if (this.expensesPaginatedPages.indexOf(this.selectedPage) < 0) {
+      this.selectedPage = this.expensesPaginatedPages[this.expensesPaginatedPages.length - 1];
+      this.paginator.pageIndex = this.selectedPage;
+      this.loadUserExpenses();
     }
   }
 

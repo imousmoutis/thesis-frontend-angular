@@ -11,11 +11,4 @@ export class Expense implements Deserializable {
     return Object.assign(this, input);
   }
 
-  constructor(amount: number, category: number, date: string, description: string) {
-    this.amount = amount;
-    this.category = category;
-    this.date = date;
-    this.description = description;
-  }
-
 }

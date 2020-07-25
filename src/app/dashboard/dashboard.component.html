@@ -5,12 +5,77 @@
 
   <mat-tab-group>
 
+
     <mat-tab label="{{'overview' | translate}}">
       Apple
     </mat-tab>
 
+    
     <mat-tab label="{{'expensesFeed' | translate}}">
-      Banana
+      <div class="container">
+        <br/>
+
+        <div class="alert alert-info" role="alert"> {{'totalExpensesHeader1' | translate}} {{userExpenses.size}}
+          {{'totalExpensesHeader2' | translate}}
+        </div>
+
+        <mat-accordion>
+          <mat-expansion-panel
+            *ngFor="let expense of userExpenses.results; let i = index;"
+            (opened)="setOpened(i)"
+            (closed)="setClosed(i)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ expense.amount }}
+                &euro;
+                {{'for' | translate}}
+                {{getTranslatedCategory(expense.category)}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <form class="text-center">
+
+              <mat-form-field>
+                <mat-label>{{'amount' | translate}}</mat-label>
+                <input matInput type="number" [(ngModel)]="expense.amount" [ngModelOptions]="{standalone: true}"
+                       readonly/>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>{{'date' | translate}}</mat-label>
+                <input matInput type="text" [(ngModel)]="expense.date" [ngModelOptions]="{standalone: true}"
+                       readonly/>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>{{'category' | translate}}</mat-label>
+                <input matInput type="text" [ngModel]="getTranslatedCategory(expense.category)"
+                       [ngModelOptions]="{standalone:true}" readonly/>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>{{'description' | translate}}</mat-label>
+                <textarea matInput type="text" [(ngModel)]="expense.description" [ngModelOptions]="{standalone: true}"
+                          readonly rows="3"></textarea>
+              </mat-form-field>
+
+              <button mdbBtn type="button" color="danger" class="waves-effect z-depth-0 pull-left" mdbWavesEffect
+                      (click)="deleteExpense(expense.id)">
+                <em class="far fa-trash-alt"></em>
+                {{'delete' | translate}}
+              </button>
+
+            </form>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-paginator [hidden]="userExpenses.size <= 0" #paginator [length]="userExpenses.size"
+                       [pageSize]="pageSize"
+                       [pageSizeOptions]="[5, 25, 50, 100]"
+                       (page)="changePage($event)">
+        </mat-paginator>
+
+      </div>
     </mat-tab>
 
     <mat-tab label="{{'newExpense' | translate}}">
