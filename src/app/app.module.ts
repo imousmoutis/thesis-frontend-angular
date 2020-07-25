@@ -48,6 +48,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {DatePipe} from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.baseUrl + 'lexicon?lang=', '');
@@ -99,7 +100,8 @@ export function createCustomMatPaginatorIntl(translateService: TranslateService)
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatGridListModule
   ],
   providers: [IndexService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
     JwtHelperService, AuthService, AuthGuardService, RoleService, RoleGuardService, LoginGuardService, {

@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {TranslateService} from '@ngx-translate/core';
 import {ExpenseList} from '../model/expense-list';
 import {MatPaginator} from '@angular/material/paginator';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,14 +34,20 @@ export class DashboardComponent implements OnInit {
 
   expensesPaginatedPages: number[];
 
+  dateFrom: Date;
+
+  dateTo: Date;
+
   @ViewChild('paginator') paginator: MatPaginator;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
 
   constructor(private expenseService: ExpenseService, public authSharedService: AuthSharedService, private snackBar: MatSnackBar,
-              private translateService: TranslateService) {
+              private translateService: TranslateService, private datePipe: DatePipe) {
     this.username = this.authSharedService.username;
     this.userExpenses.size = 0;
+    this.dateFrom = this.today;
+    this.dateTo = this.today;
   }
 
   ngOnInit(): void {
@@ -126,6 +133,13 @@ export class DashboardComponent implements OnInit {
       this.paginator.pageIndex = this.selectedPage;
       this.loadUserExpenses();
     }
+  }
+
+  getTotalExpenses() {
+    this.expenseService.getUserTotalExpenses(this.datePipe.transform(this.dateFrom, 'dd/MM/yyyy'),
+      this.datePipe.transform(this.dateTo, 'dd/MM/yyyy')).subscribe(res => {
+      console.log(res);
+    });
   }
 
 }

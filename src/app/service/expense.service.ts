@@ -8,6 +8,7 @@ import {ExpenseCategory} from '../model/expense-category';
 import {Expense} from '../model/expense';
 import {DatePipe} from '@angular/common';
 import {ExpenseList} from '../model/expense-list';
+import {TotalExpenses} from '../model/total-expenses';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,15 @@ export class ExpenseService {
     return this.http.post(environment.baseUrl + 'expense', parsedExpense, {
       headers: {Authorization: localStorage.getItem('jwt')}
     });
+  }
+
+  getUserTotalExpenses(from: string, to: string): Observable<TotalExpenses> {
+    return this.http.get<TotalExpenses>(environment.baseUrl + 'expense/total', {
+      headers: {Authorization: localStorage.getItem('jwt')},
+      params: new HttpParams().set('from', from).set('to', to)
+    }).pipe(
+      map(res => new TotalExpenses().deserialize(res))
+    );
   }
 
   getUserExpenses(page: number, size: number): Observable<ExpenseList> {
