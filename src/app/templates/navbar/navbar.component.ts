@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
 
   selectedLanguage: string;
 
-  constructor(private router: Router, private indexService: IndexService, private authSharedService: AuthSharedService,
+  constructor(public router: Router, private indexService: IndexService, private authSharedService: AuthSharedService,
               public authService: AuthService, private roleService: RoleService, private title: Title,
               private translateService: TranslateService, private lexiconService: LexiconService, private dateAdapter: DateAdapter<Date>) {
   }

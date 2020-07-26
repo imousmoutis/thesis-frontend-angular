@@ -50,6 +50,7 @@ import {DatePipe} from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {ChartsModule} from 'ng2-charts';
+import { LayoutComponent } from './templates/layout/layout.component';
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.baseUrl + 'lexicon?lang=', '');
@@ -72,7 +73,8 @@ export function createCustomMatPaginatorIntl(translateService: TranslateService)
     AdminComponent,
     EditUserModalComponent,
     ConfirmationDialogComponent,
-    ErrorComponent
+    ErrorComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,

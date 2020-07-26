@@ -10,30 +10,37 @@ import {AdminComponent} from './admin/admin.component';
 import {RoleGuardService} from './auth/role-guard.service';
 import {environment} from '../environments/environment';
 import {ErrorComponent} from './error/error.component';
+import {LayoutComponent} from './templates/layout/layout.component';
 
-const routes: Routes = [{path: '', component: HomeComponent}, {
-  path: 'login',
-  component: LoginComponent,
-  canActivate: [LoginGuardService]
-}, {
-  path: 'dashboard',
-  component: DashboardComponent,
-  canActivate: [RoleGuardService],
-  data: {
-    expectedRole: environment.user
-  }
-}, {
-  path: 'admin',
-  component: AdminComponent,
-  canActivate: [RoleGuardService],
-  data: {
-    expectedRole: environment.userAdmin
-  }
-}, {
-  path        : '**',
-  pathMatch   : 'full',
-  component   : ErrorComponent
-}];
+const routes: Routes = [
+  {
+    path: '', component: LayoutComponent, children: [{
+      path: '',
+      component: HomeComponent,
+    }, {
+      path: 'login',
+      component: LoginComponent,
+      canActivate: [LoginGuardService]
+    }, {
+      path: 'dashboard',
+      component: DashboardComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: environment.user
+      }
+    }, {
+      path: 'admin',
+      component: AdminComponent,
+      canActivate: [RoleGuardService],
+      data: {
+        expectedRole: environment.userAdmin
+      }
+    }]
+  }, {
+    path: '**',
+    pathMatch: 'full',
+    component: ErrorComponent
+  }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -39,7 +39,7 @@
         </mat-card>
 
         <br/>
-        <div class="alert alert-danger" role="alert" *ngIf="totalUserExpenses.dates.length < 0">
+        <div class="alert alert-danger" role="alert" *ngIf="totalUserExpenses.dates.length <= 0">
           {{'noExpensesFound' | translate}}
         </div>
 

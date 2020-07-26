@@ -10,25 +10,24 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item navbar-li">
-          <a [routerLink]="['']" [routerLinkActive]="['active-link']" [routerLinkActiveOptions]="{ exact: true }"
+          <a [routerLink]="['']" [class.active-link]="router.isActive('', true)"
              class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show">{{'home'| translate}}
           </a>
         </li>
         <li class="nav-item navbar-li" *ngIf="!authService.isAuthenticated()">
-          <a [routerLink]="['login']" [routerLinkActive]="['active-link']"
-             [routerLinkActiveOptions]="{ exact: true }" class="nav-link" data-toggle="collapse"
+          <a [routerLink]="['login']" [class.active-link]="router.isActive('login', true)"
+              class="nav-link" data-toggle="collapse"
              data-target=".navbar-collapse.show">{{'login'| translate}}
           </a>
         </li>
         <li class="nav-item navbar-li" *ngIf="hasUserRole()">
-          <a [routerLink]="['dashboard']" [routerLinkActive]="['active-link']"
-             [routerLinkActiveOptions]="{ exact: true }" class="nav-link" data-toggle="collapse"
+          <a [routerLink]="['dashboard']"  [class.active-link]="router.isActive('dashboard', true)" class="nav-link" data-toggle="collapse"
              data-target=".navbar-collapse.show">{{'dashboard'| translate}}
           </a>
         </li>
         <li class="nav-item navbar-li" *ngIf="hasAdministratorRole()">
-          <a [routerLink]="['admin']" [routerLinkActive]="['active-link']"
-             [routerLinkActiveOptions]="{ exact: true }" class="nav-link" data-toggle="collapse"
+          <a [routerLink]="['admin']" [class.active-link]="router.isActive('admin', true)" class="nav-link"
+             data-toggle="collapse"
              data-target=".navbar-collapse.show">{{'admin'| translate}}
           </a>
         </li>
