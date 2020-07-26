@@ -8,6 +8,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {ExpenseList} from '../model/expense-list';
 import {MatPaginator} from '@angular/material/paginator';
 import {DatePipe} from '@angular/common';
+import {TotalExpenses} from '../model/total-expenses';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,6 +39,20 @@ export class DashboardComponent implements OnInit {
 
   dateTo: Date;
 
+  barChartOptions = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+
+  barChartData = [];
+
+  barChartLabels = [];
+
+  totalUserExpenses = Object.assign(new TotalExpenses(), {
+    totalExpenses: [],
+    dates: []
+  });
+
   @ViewChild('paginator') paginator: MatPaginator;
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
@@ -54,10 +69,9 @@ export class DashboardComponent implements OnInit {
     this.expenseService.getExpenseCategories().subscribe(data => {
       this.expenseCategories = data;
     });
-
     this.initNewExpenseForm();
-
     this.loadUserExpenses();
+    this.getTotalExpenses();
   }
 
   initNewExpenseForm() {
@@ -78,6 +92,7 @@ export class DashboardComponent implements OnInit {
         this.formGroupDirective.resetForm();
         this.initNewExpenseForm();
         this.loadUserExpenses();
+        this.getTotalExpenses();
       });
     }
   }
@@ -112,6 +127,7 @@ export class DashboardComponent implements OnInit {
         panelClass: ['success-snackbar']
       });
       this.loadUserExpenses();
+      this.getTotalExpenses();
     });
   }
 
@@ -138,7 +154,17 @@ export class DashboardComponent implements OnInit {
   getTotalExpenses() {
     this.expenseService.getUserTotalExpenses(this.datePipe.transform(this.dateFrom, 'dd/MM/yyyy'),
       this.datePipe.transform(this.dateTo, 'dd/MM/yyyy')).subscribe(res => {
-      console.log(res);
+
+      this.barChartData = [];
+
+      this.totalUserExpenses = res;
+
+      let i = 1;
+      for (const expense of this.totalUserExpenses.totalExpenses) {
+        this.barChartData.push({data: expense, label: this.getTranslatedCategory(i)});
+        i++;
+      }
+      this.barChartLabels = this.totalUserExpenses.dates;
     });
   }
 

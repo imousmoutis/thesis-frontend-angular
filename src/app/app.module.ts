@@ -49,6 +49,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {DatePipe} from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {ChartsModule} from 'ng2-charts';
 
 export function TranslationLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, environment.baseUrl + 'lexicon?lang=', '');
@@ -101,7 +102,8 @@ export function createCustomMatPaginatorIntl(translateService: TranslateService)
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
-    MatGridListModule
+    MatGridListModule,
+    ChartsModule
   ],
   providers: [IndexService, {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
     JwtHelperService, AuthService, AuthGuardService, RoleService, RoleGuardService, LoginGuardService, {

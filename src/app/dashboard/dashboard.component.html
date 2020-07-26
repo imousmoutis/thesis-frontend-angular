@@ -35,9 +35,22 @@
                 </div>
               </div>
             </div>
-
           </mat-card-content>
         </mat-card>
+
+        <br/>
+        <div class="alert alert-danger" role="alert" *ngIf="totalUserExpenses.dates.length < 0">
+          {{'noExpensesFound' | translate}}
+        </div>
+
+        <div *ngIf="totalUserExpenses.dates.length > 0">
+          <canvas baseChart chartType="horizontalBar" legend="true"
+                  [options]="barChartOptions"
+                  [datasets]="barChartData" [labels]="barChartLabels">
+          </canvas>
+        </div>
+
+
       </div>
     </mat-tab>
 
