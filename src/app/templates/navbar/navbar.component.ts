@@ -47,6 +47,7 @@ export class NavbarComponent implements OnInit {
 
     this.translateService.onLangChange.subscribe(event => {
       this.selectedLanguage = event.lang;
+      localStorage.setItem('locale', this.selectedLanguage);
       this.setTitle(this.router.url);
       this.setDatePickerLanguage();
     });
